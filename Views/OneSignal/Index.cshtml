@@ -1,16 +1,24 @@
 @model IEnumerable<AG_OneSignalAPI.Models.OneSignalDetails>
 
 @{
-    ViewBag.Title = "One Signal Apps Details";
+
+    ViewBag.Title = "One Signal Apps Detail";
 
 }
 
-<h2>Apps Details</h2>
+<style>
+    th {
+        text-align:center;
+    }
+</style>
 
-<p>
-    @Html.ActionLink("Create New", "CreateApp")
+
+<h2 style="text-align:center;font-weight:bolder">@ViewBag.Title</h2>
+
+<p style="text-align:right;font-size:medium">
+    @Html.ActionLink("Create New App", "CreateApp")
 </p>
-<table class="table">
+<table class="table table-bordered table-responsive table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.id)
@@ -57,6 +65,7 @@
             <td>
 
                 @Html.ActionLink("Details", "Details", new { id = item.id })
+               
 
             </td>
         </tr>
