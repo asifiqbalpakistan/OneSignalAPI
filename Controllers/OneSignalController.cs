@@ -1,4 +1,4 @@
-﻿using AG_OneSignalAPI.Models;
+using AG_OneSignalAPI.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -20,6 +20,32 @@ namespace AG_OneSignalAPI.Controllers
         {
             return View(new OneSignalDetails());
         }
+
+        [HttpPost]
+        public ActionResult CreateApp(OneSignalDetails obj)
+        {
+            try
+            {
+
+                var client = new RestClient(URL_APPS + "?name=" + obj.name + "&chrome_web_origin=" + obj.chrome_web_origin + "&site_name=" + obj.chrome_web_origin + "");
+
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Authorization", "Basic " + API_KEY + "");
+                request.AddHeader("Content-Type", "application/json");
+
+                IRestResponse response = client.Execute(request);
+
+                return RedirectToAction("Index", "OneSignal");
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
+
+        }
+
         public ActionResult Index()
         {
             try
@@ -38,7 +64,7 @@ namespace AG_OneSignalAPI.Controllers
 
                 return View("Error");
             }
-           
+
         }
         public ActionResult Details(string id)
         {
@@ -58,7 +84,7 @@ namespace AG_OneSignalAPI.Controllers
 
                 return View("Error");
             }
-           
+
         }
         public ActionResult Edit(string id)
         {
@@ -80,7 +106,7 @@ namespace AG_OneSignalAPI.Controllers
 
                 return View("Error");
             }
-           
+
         }
         [HttpPost]
         public ActionResult Edit(OneSignalDetails obj)
@@ -111,6 +137,6 @@ namespace AG_OneSignalAPI.Controllers
 
         }
 
-       
+
     }
 }
